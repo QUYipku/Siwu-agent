@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "siwu-agent"
-version = "0.0.4"
+version = "0.1.1"
 description = "思悟 Agent —— 以毛泽东思想方法论为认知内核的 AI 智能体"
 readme = "README.md"
 license = {text = "MIT"}
