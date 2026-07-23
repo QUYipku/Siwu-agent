@@ -45,6 +45,6 @@ fi
 
 cd "$PROJECT_ROOT"
 echo "[push] branch=$BRANCH remote=$REMOTE_NAME url=${REMOTE_URL%%@*}@***"
-git push "$AUTH_URL" "$BRANCH" --tags
+git push "$AUTH_URL" "$BRANCH" "$@"
 
 echo "[push] 完成"
