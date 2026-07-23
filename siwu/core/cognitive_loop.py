@@ -511,6 +511,29 @@ class CognitiveLoop:
                  task_complexity=getattr(preprocessed, "task_complexity", ""),
                  skips=_skips, lights=_lights, mode=mode)
 
+        # ── 无需调查：LLM 知识可直接回答 → 跳过全部认知阶段，直接生成回复 ──
+        if not getattr(preprocessed, "needs_investigation", True):
+            log.info("cognitive_loop.direct_answer", question=question[:80])
+            from ..api.schemas.models import DecisionReport, ActionItem
+            _decision = DecisionReport(
+                strategic_assessment="可直接用自身知识回答的简单问题",
+                action_items=[],
+                summary="",
+            )
+            trace.decision = _decision
+            trace.metadata.end_time = datetime.now()
+            trace.metadata.iterations = 0
+            _title = await self._generate_title(question, preprocessed) if on_title else ""
+            if _title and on_title:
+                on_title(_title, conv_id)
+            response = await self._build_response(question, trace, session_id, conv_id, detailed=False)
+            self._save_episode(response, conv_id, _project_id)
+            if conv_id:
+                release_conv_controller(conv_id)
+            else:
+                release_controller(session_id)
+            return response
+
         # ── 首轮对话自动生成标题 ──
         # 当 conv_context 为空且 conv_id 有效时，说明是新对话的第一轮，
         # 用 LLM 快速生成一个简洁的会话标题，并通过 on_title 推送到前端。
