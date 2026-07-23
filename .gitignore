@@ -1,0 +1,75 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+dist/
+build/
+*.egg
+.eggs/
+
+# Virtual env
+.venv/
+venv/
+env/
+
+# Node (dev artifacts)
+node_modules/
+
+# Temp / backup files
+*.tmp
+*.bak
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Secrets & local config (contains API keys, DO NOT COMMIT)
+.env
+config.toml
+.github-token
+
+# Data directories (generated at runtime)
+data/
+workspace/
+examples/
+
+# Logs
+logs/
+*.log
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Docker
+.docker/
+
+# Tests & coverage
+.coverage
+htmlcov/
+.pytest_cache/
+
+# Claude desktop internal data
+.claude/
+CLAUDE.md
+
+# Electron build output
+dist-electron/
+
+# Design docs (internal, not for distribution)
+siwu-agent-plan.md
+
+# Prompt design docs (internal, not for distribution)
+prompts/
+docs/
+
+# Runtime project & skill data (keep folder, ignore contents)
+projects/*
+!projects/.gitkeep
+siwu/skills/*
+!siwu/skills/.gitkeep
+
+# Misc dev scraps
+tail_fix.py

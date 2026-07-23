@@ -1,0 +1,70 @@
+# 思悟 Agent —— Electron Builder 打包配置
+# 用法：npm run electron:build
+# 参考：https://www.electron.build/configuration
+
+appId: com.siwu.agent
+productName: "思悟 Agent"
+copyright: "Copyright © 2026 Mourpheuon"
+
+# 打包目录：包含 Electron 主进程 + Python 源码
+directories:
+  output: dist-electron
+  buildResources: assets
+
+files:
+  # Electron 主进程
+  - electron/**/*
+  - package.json
+  # Python 源码（运行时需要）
+  - siwu/**/*
+  - pyproject.toml
+  - config.toml.example
+  # 前端构建产物（由 vite build 生成）
+  - siwu/web/dist/**/*
+  # 技能包（.gitkeep 占位，实际技能在运行时填充）
+  - siwu/skills/**/*
+
+# 以下不打包进 asar
+asar: false
+
+# 额外资源（不压缩，保持原样）
+extraResources:
+  - from: siwu
+    to: siwu
+
+# macOS 配置
+mac:
+  category: public.app-category.productivity
+  target:
+    - dmg
+    - zip
+  icon: assets/icon.icns
+  # Python 和依赖需要用户自行安装
+  extendInfo:
+    LSEnvironment:
+      SIWU_PROJECTS_DIR: "~/Documents/SiwuProjects"
+
+# Windows 配置
+win:
+  target:
+    - nsis
+  icon: assets/icon.ico
+
+nsis:
+  oneClick: false
+  allowToChangeInstallationDirectory: true
+  # 提示用户安装 Python
+  include: null
+
+# Linux 配置
+linux:
+  target:
+    - AppImage
+    - deb
+  category: Office
+  icon: assets/icon.png
+
+# 发布配置（GitHub Releases）
+publish:
+  provider: github
+ 

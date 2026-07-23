@@ -1,0 +1,12 @@
+.git
+.venv
+__pycache__
+*.pyc
+data
+workspace
+logs
+.env
+config.toml
+.idea
+.vscode
+*.md
